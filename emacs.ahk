@@ -58,7 +58,7 @@ kill_line()
 {
   Send {ShiftDown}{END}{SHIFTUP}
   Sleep 50 ;[ms] this value depends on your environment
-  Send ^x
+  Send >^x
   global is_pre_spc = 0
   Return
 }
@@ -94,49 +94,49 @@ newline_and_indent()
 }
 isearch_forward()
 {
-  Send ^f
+  Send >^f
   global is_pre_spc = 0
   Return
 }
 isearch_backward()
 {
-  Send ^f
+  Send >^f
   global is_pre_spc = 0
   Return
 }
 kill_region()
 {
-  Send ^x
+  Send >^x
   global is_pre_spc = 0
   Return
 }
 kill_ring_save()
 {
-  Send ^c
+  Send >^c
   global is_pre_spc = 0
   Return
 }
 yank()
 {
-  Send ^v
+  Send >^v
   global is_pre_spc = 0
   Return
 }
 undo()
 {
-  Send ^z
+  Send >^z
   global is_pre_spc = 0
   Return
 }
 find_file()
 {
-  Send ^o
+  Send >^o
   global is_pre_x = 0
   Return
 }
 save_buffer()
 {
-  Send, ^s
+  Send, >^s
   global is_pre_x = 0
   Return
 }
@@ -221,13 +221,13 @@ scroll_down()
 }
 
 
-^x::
+>^x::
   If is_target()
     Send %A_ThisHotkey%
   Else
     is_pre_x = 1
   Return 
-^f::
+>^f::
   If is_target()
     Send %A_ThisHotkey%
   Else
@@ -238,7 +238,7 @@ scroll_down()
       forward_char()
   }
   Return  
-^c::
+>^c::
   If is_target()
     Send %A_ThisHotkey%
   Else
@@ -247,55 +247,55 @@ scroll_down()
       kill_emacs()
   }
   Return  
-^d::
+>^d::
   If is_target()
     Send %A_ThisHotkey%
   Else
     delete_char()
   Return
-^h::
+>^h::
   If is_target()
     Send %A_ThisHotkey%
   Else
     delete_backward_char()
   Return
-^k::
+>^k::
   If is_target()
     Send %A_ThisHotkey%
   Else
     kill_line()
   Return
-;; ^o::
+;; >^o::
 ;;   If is_target()
 ;;     Send %A_ThisHotkey%
 ;;   Else
 ;;     open_line()
 ;;   Return
-^g::
+>^g::
   If is_target()
     Send %A_ThisHotkey%
   Else
     quit()
   Return
-;; ^j::
+;; >^j::
 ;;   If is_target()
 ;;     Send %A_ThisHotkey%
 ;;   Else
 ;;     newline_and_indent()
 ;;   Return
-^m::
+>^m::
   If is_target()
     Send %A_ThisHotkey%
   Else
     newline()
   Return
-^i::
+>^i::
   If is_target()
     Send %A_ThisHotkey%
   Else
     indent_for_tab_command()
   Return
-^s::
+>^s::
   If is_target()
     Send %A_ThisHotkey%
   Else
@@ -306,13 +306,13 @@ scroll_down()
       isearch_forward()
   }
   Return
-^r::
+>^r::
   If is_target()
     Send %A_ThisHotkey%
   Else
     isearch_backward()
   Return
-^w::
+>^w::
   If is_target()
     Send %A_ThisHotkey%
   Else
@@ -324,21 +324,21 @@ scroll_down()
   Else
     kill_ring_save()
   Return
-^y::
+>^y::
   If is_target()
     Send %A_ThisHotkey%
   Else
     yank()
   Return
-^/::
+>^/::
   If is_target()
     Send %A_ThisHotkey%
   Else
     undo()
   Return  
   
-;$^{Space}::
-^vk20sc039::
+;$>^{Space}::
+>^vk20sc039::
   If is_target()
     Send {CtrlDown}{Space}{CtrlUp}
   Else
@@ -349,7 +349,7 @@ scroll_down()
       is_pre_spc = 1
   }
   Return
-^@::
+>^@::
   If is_target()
     Send %A_ThisHotkey%
   Else
@@ -360,37 +360,37 @@ scroll_down()
       is_pre_spc = 1
   }
   Return
-^a::
+>^a::
   If is_target()
     Send %A_ThisHotkey%
   Else
     move_beginning_of_line()
   Return
-^e::
+>^e::
   If is_target()
     Send %A_ThisHotkey%
   Else
     move_end_of_line()
   Return
-^p::
+>^p::
   If is_target()
     Send %A_ThisHotkey%
   Else
     previous_line()
   Return
-^n::
+>^n::
   If is_target()
     Send %A_ThisHotkey%
   Else
     next_line()
   Return
-^b::
+>^b::
   If is_target()
     Send %A_ThisHotkey%
   Else
     backward_char()
   Return
-^v::
+>^v::
   If is_target()
     Send %A_ThisHotkey%
   Else
@@ -403,3 +403,10 @@ scroll_down()
     scroll_up()
   Return
 
+#q::WinKill,A
+
+#k::
+  MsgBox, 4,, スクリプトを終了しますか?,
+  IfMsgBox, Yes
+    ExitApp
+  Return
